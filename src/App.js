@@ -19,6 +19,11 @@ export default function App() {
     );
   }
 
+  function handleResetList() {
+    const confirmed = window.confirm("Do you want to reset the list?");
+    if (confirmed) setItems([]);
+  }
+
   return (
     <div className="app">
       <Logo />
@@ -27,6 +32,7 @@ export default function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
+        onResetList={handleResetList}
       />
       <Stat items={items} />
     </div>
@@ -80,7 +86,7 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItem, onToggleItem }) {
+function PackingList({ items, onDeleteItem, onToggleItem, onResetList }) {
   const [sortBy, setSortBy] = useState("input");
   let sortedItems;
 
@@ -113,6 +119,7 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button onClick={onResetList}>Clear List</button>
       </div>
     </div>
   );
